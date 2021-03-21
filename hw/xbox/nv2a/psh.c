@@ -779,8 +779,8 @@ static QString* psh_convert(struct PixelShader *ps)
             qstring_append_fmt(vars, "/* PS_TEXTUREMODES_DOT_ST */\n");
             qstring_append_fmt(vars, "float dot%d = dot(pT%d.xyz, %s(t%d.rgb));\n",
                 i, i, dotmap_func, ps->input_tex[i]);
-            qstring_append_fmt(vars, "vec4 t%d = texture(texSamp%d, vec2(dot%d, dot%d));\n",
-                i, i, i-1, i);
+            qstring_append_fmt(vars, "vec4 t%d = texture(texSamp%d, texScale%d * vec2(dot%d, dot%d));\n",
+                i, i, i, i-1, i);
             break;
         case PS_TEXTUREMODES_DOT_ZW:
             assert(i >= 2);
